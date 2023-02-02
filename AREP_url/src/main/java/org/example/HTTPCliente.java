@@ -10,11 +10,21 @@ import java.net.URL;
 public class HTTPCliente{
 
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String GET_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=89f929b9";
+    private static String URLbase = "http://www.omdbapi.com/?t=";
+    private static final String key = "&apikey=89f929b9";
+    private static String urlConsulta = "";
+    private static String json = "";
+    private static String movie = "";
 
-    public static void main(String[] args) throws IOException {
+    public static String getAPI(String title) throws IOException {
 
-        URL obj = new URL(GET_URL);
+        movie = title;
+
+        urlConsulta += URLbase + title + key;
+
+        // System.out.println(urlConsulta);
+
+        URL obj = new URL(urlConsulta);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
@@ -34,12 +44,19 @@ public class HTTPCliente{
             }
             in.close();
 
-            // print result
-            System.out.println(response.toString());
+            // convert result to string and save it
+            // System.out.println(response.toString());
+            json = response.toString();
         } else {
             System.out.println("GET request not worked");
         }
         System.out.println("GET DONE");
+        urlConsulta = "";
+        return json;
+    }
+
+    public static String getTitle(){
+        return movie;
     }
 
 }

@@ -2,11 +2,23 @@ package org.example;
 
 import java.net.*;
 import java.io.*;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Set;
 
+import org.json.*;
+
+/**
+ * Crea servidor y sube HTML con datos de la pelicula
+ */
 
 public class HTTPServer {
 
     public static void main(String[] args) throws IOException {
+
+//        System.out.println(HTTPCliente.getAPI("cars"));
+//        tabla(HTTPCliente.getAPI("cars"));
+
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(35000);
@@ -35,7 +47,7 @@ public class HTTPServer {
                     break;
                 }
             }
-            outputLine = htmlWithForms();
+            outputLine = jsonHTML(HTTPCliente.getAPI("cars"));
             out.println(outputLine);
 
             out.close();
@@ -44,6 +56,68 @@ public class HTTPServer {
         }
         serverSocket.close();
     }
+
+
+    public static String jsonHTML(String json){
+        return "HTTP/1.1 200 OK\r\n"
+                + "\r\n"
+                + "<!DOCTYPE html>"
+                + "<html>"
+                + "<head>"
+                + "<meta charset=\"UTF-8\">"
+                + "<title>Movies</title>\n"
+                + "</head>" +
+                "<style>\n" +
+                "table {\n" +
+                "  font-family: arial, sans-serif;\n" +
+                "  border-collapse: collapse;\n" +
+                "  width: 100%;\n" +
+                "}\n" +
+                "\n" +
+                "td, th {\n" +
+                "  border: 1px solid #dddddd;\n" +
+                "  text-align: left;\n" +
+                "  padding: 8px;\n" +
+                "}\n" +
+                "\n" +
+                "tr:nth-child(even) {\n" +
+                "  background-color: #dddddd;\n" +
+                "}\n" +
+                "</style>" +
+                "<h2>"+HTTPCliente.getTitle().toUpperCase(Locale.ROOT)+"</h2>"+
+                "<table> \n"+
+                "<tr>\n" +
+                "<th>Category</th>" +
+                "<th>Data</th>"+
+                "</tr>" +
+                tabla(json) +
+                "</table>";
+
+    }
+    /**
+     * Crea una tabla en formato HTML
+     * @param json recibe el String que esta en formato JSON
+     * @return tabla con formato HTML con los datos recibidos del string JSON ya convertido
+     */
+    public static String tabla(String json){
+        String p = "[" + json + "]";
+        // System.out.println(p);
+        JSONArray a = new JSONArray(p);
+        // System.out.println(a);
+        String tabla = "";
+        for(int i = 0; i<a.length();i++){
+            JSONObject tupla = a.getJSONObject(i);
+            Set<String> setKeys= tupla.keySet();
+            // System.out.println(setKeys);
+            for(String value : setKeys) {
+                // System.out.println(value + "@" + tupla.get(value));
+                tabla += "<tr>\n" + "<td>\n" + value + "</td>\n";
+                tabla += "<td>\n" + tupla.get(value) + "</td>\n" + "</tr>\n";
+            }
+        }
+        return tabla.replace("[","").replace("{","").replace("}","").replace("]","");
+    }
+
 
     public static String htmlSimple(){
         return "HTTP/1.1 200 OK\r\n"
@@ -59,6 +133,7 @@ public class HTTPServer {
                 + "</body>"
                 + "</html>";
     }
+
 
     public static String htmlWithForms(){
         return  "HTTP/1.1 200 OK\r\n"
