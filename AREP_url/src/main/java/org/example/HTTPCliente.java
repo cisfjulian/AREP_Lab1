@@ -16,6 +16,12 @@ public class HTTPCliente{
     private static String json = "";
     private static String movie = "";
 
+    /**
+     * Obtiene la informacion del API
+     * @param title recibe el titulo de la pelicula
+     * @return String en formato json con la informacion de la pelicula
+     */
+
     public static String getAPI(String title) throws IOException {
 
         movie = title;

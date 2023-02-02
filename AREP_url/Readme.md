@@ -1,87 +1,72 @@
-# Project Title
+# Taller 1 AREP
 
-One Paragraph of project description goes here
+Aplicacion que permite consultar la informacion de peliculas.
 
-## Getting Started
+## Empezando
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Con el paso a paso se obtendra una copia de esta aplicacion y podra ser utilizada
 
-### Prerequisites
+### Pre requisitos
 
-What things you need to install the software and how to install them
+1. Git: Descarga y administracion versiones repositorio.
+2. Java: Lenguaje utilizado.
+3. Maven: Controlador del proyecto.
 
-```
-Give examples
-```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+Clonamos el repositorio
 
 ```
-Give the example
+git clone https://github.com/cisfjulian/AREP_Lab1.git
 ```
 
-And repeat
+Entramos a la ubicacion donde se clono el repositorio y a traves del cmd ejecutamos el siguiente comando
+(Tener en cuenta que se debe tener configurado maven)
 
 ```
-until finished
+mvn clean package exec:java -D "exec.mainClass"="org.example.HTTPServer"
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Luego de ejecutar y que el maven compile, en nuestro navegador preferido colocaremos en la barra de busqueda
+*localhost:35000*
+Veremos que debemos introducir el titulo de la pelicula por lo cual lo introducimos y veremos que la pagina nos
+trae la informacion de dicha pelicula.
 
-## Running the tests
+Si quisieramos consultar otra pelicula damos enter en el cmd, recargamos la pagina y nuevamente en el cmd introducimos
+la pelicula de la cual queremos informacion.
 
-Explain how to run the automated tests for this system
+## Javadoc
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
+Para generar el javadoc ejecutamos el siguiente comando
 
 ```
-Give an example
+mvn javadoc:javadoc
 ```
 
-## Deployment
+Posterior a ello debemos ir a la carpeta target -> site -> apidocs y alli encontraremos toda la informacion relacionada.
 
-Add additional notes about how to deploy this on a live system
+### Test
 
-## Built With
+Pendiente a implementar
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+```
+Pendiente a implementar
+```
 
-## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+## Construido con
 
-## Versioning
+* Maven - Manejo de dependencias y proyecto en general.
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+## Version
 
-## Authors
+1.0
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+## Autor
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Julian Largo** - **cisfjulian** 
 
-## License
+## Diseño y Extension
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc

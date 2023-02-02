@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Set;
+import java.util.Scanner;
 
 import org.json.*;
 
@@ -14,11 +15,15 @@ import org.json.*;
 
 public class HTTPServer {
 
+    /**
+     * Clase main que inicia el servidor y lo deja listo para conexion con navegador
+     */
+
     public static void main(String[] args) throws IOException {
 
 //        System.out.println(HTTPCliente.getAPI("cars"));
 //        tabla(HTTPCliente.getAPI("cars"));
-
+        String movie = "";
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(35000);
@@ -36,6 +41,7 @@ public class HTTPServer {
                 System.err.println("Accept failed.");
                 System.exit(1);
             }
+
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(
@@ -47,7 +53,13 @@ public class HTTPServer {
                     break;
                 }
             }
-            outputLine = jsonHTML(HTTPCliente.getAPI("cars"));
+
+            Scanner keyboard = new Scanner(System.in);
+            System.out.println("Pelicula de la cual desea obtener informacion");
+            movie = keyboard.nextLine();
+
+            String json = Cache.checkCache(movie);
+            outputLine = jsonHTML(json);
             out.println(outputLine);
 
             out.close();
@@ -57,6 +69,11 @@ public class HTTPServer {
         serverSocket.close();
     }
 
+    /**
+     * Elabora el HTML para ser mostrado en el navegador
+     * @param json recibe el String en formato JSON
+     * @return String en forma HTML con la informacion
+     */
 
     public static String jsonHTML(String json){
         return "HTTP/1.1 200 OK\r\n"
