@@ -46,7 +46,7 @@ mvn javadoc:javadoc
 
 Posterior a ello debemos ir a la carpeta target -> site -> apidocs y alli encontraremos toda la informacion relacionada.
 
-### Test
+## Test
 
 Pendiente a implementar
 
@@ -65,8 +65,20 @@ Pendiente a implementar
 
 ## Autor
 
-* **Julian Largo** - **cisfjulian** 
+* **Julian Largo**
 
 ## Diseño y Extension
 
+En primera instancia para consultar el recurso se recurre primero a un cache que se va a encargar de recibir primero la solicitud
+reduciendo asi el uso del API. Uso de un servidor fachada.
 
+Si se quisiera consultar otro tipo de recurso que tenga uso de mensaje JSON tambien se podria extender y ser usado este servidor.
+
+En cuanto a diseño, hay una parte que se encarga de consultar el API o el recurso. Otra que se encarga de montar o poner en marcha el servidor
+con la consulta que hace al Cache y finalmente un Cache que revisa dentro de si si puede responder la solicitud o debe acudir al API.
+
+Se hace uso de funciones sencillas, en cuanto a HTML el json es transformado a una tabla para ser visualizado de una mejor manera.
+
+Se utiliza maven para controlar el ciclo de vida del proyecto, ejecutarlo, compilarlo.
+
+El codigo se encuentra organizado y es legible para entender que hace cada clase y cada metodo, del mismo modo se encuentra documentado.

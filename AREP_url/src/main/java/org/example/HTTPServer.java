@@ -21,8 +21,6 @@ public class HTTPServer {
 
     public static void main(String[] args) throws IOException {
 
-//        System.out.println(HTTPCliente.getAPI("cars"));
-//        tabla(HTTPCliente.getAPI("cars"));
         String movie = "";
         ServerSocket serverSocket = null;
         try {
